@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mapper.EmployeerMapper">
+	
+	<resultMap type="Employeer" id="resultMap">
+		<id property="employeer_id" column="employeer_id"></id>
+		<result property="employeer_id" column="employeer_id"></result>
+		<result property="employeer_name" column="employeer_name"></result>
+		<result property="employeer_age" column="employeer_age"></result>
+		<result property="employeer_department" column="employeer_department"></result>
+		<result property="employeer_worktype" column="employeer_worktype"></result>
+	</resultMap>
+	
+	<insert id="add" parameterType="Employeer">
+		insert into t_employeer(employeer_id,employeer_name,employeer_age,employeer_department,employeer_worktype)
+		values(#{employeer_id},#{employeer_name},#{employeer_age},#{employeer_department},#{employeer_worktype})
+	</insert>
+	
+	<update id="update" parameterType="Employeer">
+		update t_employeer set employeer_name=#{employeer_name},employeer_age=#{employeer_age},
+		employeer_department=#{employeer_department},employeer_worktype=#{employeer_worktype} where employeer_id=#{employeer_id}
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		delete from t_employeer where employeer_id=#{employeer_id}
+	</delete>
+	
+	<select id="query" parameterType="int" resultType="Employeer">
+		select * from t_employeer where employeer_id=#{employeer_id}
+	</select>
+	
+	<select id="queryByName" parameterType="string" resultMap="resultMap">
+		select * from t_employeer where employeer_name like #{employeer_name}
+	</select>
+	
+	<select id="queryByNameAndDep"  resultMap="resultMap">  
+     	select * from t_employeer where employeer_name=#{0} and employeer_department=#{1}  
+     </select>
+</mapper>
